@@ -11,18 +11,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @WebServlet(name = "ProductServlet", urlPatterns = "/product")
 public class ProductServlet extends HttpServlet {
+
     private ProductService productService = new ProductServiceImpl();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        if (action == null) {
             action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
                 createProduct(request, response);
                 break;
@@ -43,10 +48,12 @@ public class ProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        if(action == null){
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
+        if (action == null) {
             action = "";
         }
-        switch (action){
+        switch (action) {
             case "create":
                 showCreateForm(request, response);
                 break;
@@ -68,7 +75,7 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void listProduct(HttpServletRequest request, HttpServletResponse response){
+    private void listProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         List<Product> products = this.productService.findAll();
         request.setAttribute("product", products);
 
@@ -104,14 +111,14 @@ public class ProductServlet extends HttpServlet {
         }
     }
 
-    private void createProduct(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("name");
+    private void createProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        String name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
         Double cost = Double.valueOf(request.getParameter("cost"));
-        String decription = request.getParameter("decription");
-        String producer = request.getParameter("producer");
-        int id = (int)(Math.random() * 10000);
+        String decription = new String(request.getParameter("decription").getBytes("iso-8859-1"), "utf-8");
+        String producer = new String(request.getParameter("producer").getBytes("iso-8859-1"), "utf-8");
+        int id = (int) (Math.random() * 10000);
 
-        Product product = new Product(id, name, cost, decription,producer);
+        Product product = new Product(id, name, cost, decription, producer);
         this.productService.save(product);
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
         request.setAttribute("message", "New product was created");
@@ -128,7 +135,7 @@ public class ProductServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.productService.findById(id);
         RequestDispatcher dispatcher;
-        if(product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {
             request.setAttribute("product", product);
@@ -152,7 +159,7 @@ public class ProductServlet extends HttpServlet {
         String producer = request.getParameter("producer");
         Product product = this.productService.findById(id);
         RequestDispatcher dispatcher;
-        if(product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {
             product.setName(name);
@@ -177,7 +184,7 @@ public class ProductServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.productService.findById(id);
         RequestDispatcher dispatcher;
-        if(product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {
             request.setAttribute("product", product);
@@ -196,7 +203,7 @@ public class ProductServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.productService.findById(id);
         RequestDispatcher dispatcher;
-        if(product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {
             this.productService.remove(id);
@@ -212,7 +219,7 @@ public class ProductServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Product product = this.productService.findById(id);
         RequestDispatcher dispatcher;
-        if(product == null){
+        if (product == null) {
             dispatcher = request.getRequestDispatcher("error-404.jsp");
         } else {
             request.setAttribute("product", product);
@@ -228,19 +235,20 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            List<Product> productList = this.productService.findAll();
-            String search = request.getParameter("search");
-            for (int i = 0; i < productList.size(); i++) {
-                if (productList.get(i).getName().equalsIgnoreCase(search)){
-                    Product product = productList.get(i);
-                    request.setAttribute("product",product);
-                }
-                else {
-                    request.setAttribute("message","Not Found");
-                }
+        List<Product> productList = this.productService.findAll();
+        String search = new String(request.getParameter("search").getBytes("iso-8859-1"), "utf-8");
+
+        for (int i = 0; i < productList.size(); i++) {
+            if (productList.get(i).getName().equalsIgnoreCase(search)) {
+                Product product = productList.get(i);
+                request.setAttribute("product", product);
+            } else {
+                request.setAttribute("message", "Not found");
             }
-            RequestDispatcher dispatcher = request.getRequestDispatcher("product/search.jsp");
-            dispatcher.forward(request,response);
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/search.jsp");
+
+        dispatcher.forward(request, response);
     }
 
 
