@@ -23,7 +23,7 @@
             </tr>
             <tr>
                 <td>Cost: </td>
-                <td><input type="text" name="cost" id="cost" value="${requestScope["product"].getEmail()}"></td>
+                <td><input type="text" name="cost" id="cost" value="${requestScope["product"].getCost()}"></td>
             </tr>
             <tr>
                 <td>Decription: </td>

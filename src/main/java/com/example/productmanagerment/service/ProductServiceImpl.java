@@ -34,6 +34,7 @@ public class ProductServiceImpl implements ProductService{
         return productMap.get(id);
     }
 
+
     @Override
     public void update(int id, Product product) {
     productMap.put(id,product);

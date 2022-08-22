@@ -10,7 +10,9 @@
 <h1>Product</h1>
 <p>
   <a href="/product?action=create" >Create new product</a>
+
 </p>
+<a href="/product?action=search" >Search product</a>
 <table border="1">
   <tr>
     <td>Name</td>
