@@ -19,19 +19,19 @@
         <table>
             <tr>
                 <td>Name: </td>
-                <td><input type="text" name="name" id="name" value="${requestScope["productMap"].getName()}"></td>
+                <td><input type="text" name="name" id="name" value="${requestScope["product"].getName()}"></td>
             </tr>
             <tr>
                 <td>Cost: </td>
-                <td><input type="text" name="cost" id="cost" value="${requestScope["productMap"].getEmail()}"></td>
+                <td><input type="text" name="cost" id="cost" value="${requestScope["product"].getEmail()}"></td>
             </tr>
             <tr>
                 <td>Decription: </td>
-                <td><input type="text" name="decription" id="decription" value="${requestScope["productMap"].getDecription()}"></td>
+                <td><input type="text" name="decription" id="decription" value="${requestScope["product"].getDecription()}"></td>
             </tr>
             <tr>
                 <td>Producer: </td>
-                <td><input type="text" name="producer" id="producer" value="${requestScope["productMap"].getProducer()}"></td>
+                <td><input type="text" name="producer" id="producer" value="${requestScope["product"].getProducer()}"></td>
             </tr>
             <tr>
                 <td></td>

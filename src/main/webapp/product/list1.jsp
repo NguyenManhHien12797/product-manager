@@ -2,26 +2,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>Customer List</title>
+  <title>Product List</title>
 
 </head>
 <body>
+
+<h1>Product</h1>
+<p>
+  <a href="/product?action=create" >Create new product</a>
+</p>
 <table border="1">
   <tr>
     <td>Name</td>
-    <td>Email</td>
-    <td>Address</td>
+    <td>Cost</td>
+    <td>Decription</td>
+    <td>Producer</td>
     <td>Edit</td>
     <td>Delete</td>
   </tr>
-  <c:forEach items='${requestScope["productMap"]}' var="productMap">
+  <c:forEach items='${requestScope["product"]}' var="product">
     <tr>
-      <td><a href="/customers?action=view&id=${customer.getId()}">${productMap.getName()}</a></td>
-      <td>${productMap.getCost()}</td>
-      <td>${productMap.getDecription() }</td>
-      <td>${productMap.getProducer() }</td>
-      <td><a href="/customers?action=edit&id=${customer.getId()}">edit</a></td>
-      <td><a href="/customers?action=delete&id=${customer.getId()}">delete</a></td>
+      <td><a href="/product?action=view&id=${product.getId()}">${product.getName()}</a></td>
+      <td>${product.getCost()}</td>
+      <td>${product.getDecription() }</td>
+      <td>${product.getProducer() }</td>
+      <td><a href="/product?action=edit&id=${product.getId()}">edit</a></td>
+      <td><a href="/product?action=delete&id=${product.getId()}">delete</a></td>
 
     </tr>
   </c:forEach>

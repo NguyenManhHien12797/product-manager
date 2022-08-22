@@ -18,7 +18,7 @@
   </c:if>
 </p>
 <p>
-  <a href="/customers">Back to product list</a>
+  <a href="/product">Back to product list</a>
 </p>
 <form method="post" >
   <fieldset>
@@ -30,7 +30,7 @@
       </tr>
       <tr>
         <td>Cost: </td>
-        <td><input type="text" name="email" id="email"></td>
+        <td><input type="text" name="cost" id="cost"></td>
       </tr>
       <tr>
         <td>Decription: </td>

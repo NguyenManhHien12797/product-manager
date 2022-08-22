@@ -15,19 +15,19 @@
         <table>
             <tr>
                 <td>Name: </td>
-                <td>${requestScope["productMap"].getName()}</td>
+                <td>${requestScope["product"].getName()}</td>
             </tr>
             <tr>
                 <td>Cost: </td>
-                <td>${requestScope["productMap"].getCost()}</td>
+                <td>${requestScope["product"].getCost()}</td>
             </tr>
             <tr>
                 <td>Decription: </td>
-                <td>${requestScope["productMap"].getDecription()}</td>
+                <td>${requestScope["product"].getDecription()}</td>
             </tr>
             <tr>
                 <td>Producer: </td>
-                <td>${requestScope["productMap"].getProducer() }</td>
+                <td>${requestScope["product"].getProducer() }</td>
             </tr>
             <tr>
                 <td><input type="submit" value="Delete product"></td>
